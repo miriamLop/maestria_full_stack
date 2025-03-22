@@ -22,7 +22,9 @@ class Editar extends React.Component {
             "flimite": ""
         },
         error: false,
-        errorMsg: ""
+        errorMsg: "",
+        success: false,
+        successMsg: ""
     }
 
     componentDidMount() {
@@ -80,7 +82,11 @@ class Editar extends React.Component {
                 response => {
                     console.log(response);
                     console.log("status: ", response.data.status);
-                    
+
+                    this.setState({
+                        success: true,
+                        successMsg: "Modificacion correcta."
+                    })
 
                 })
             .catch((error) => {
@@ -172,13 +178,20 @@ class Editar extends React.Component {
                             </div>
                         </div>
 
-                        <br /><br />
+                        <br />
+                        {this.state.success === true &&
+                            <div className="alert alert-primary" role="alert">
+                                {this.state.successMsg}
+                            </div>
+                        }
+                        <br />
 
                         <button type="submit" className="btn btn-primary" style={{ marginRight: "10px" }} onClick={this.manejadorModificar} >Modificar</button>
                         <button type="submit" className="btn btn-danger" style={{ marginRight: "10px" }}>Eliminar</button>
                         <a className="btn btn-dark" href="/dashboard">Salir</a>
 
                     </form>
+
                 </div>
 
             </React.Fragment>

@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
 
                 </Header>
 
-                <div className="container" >
+                <div >
                     <br /><br />
                     <table className="table table-hover">
                         <thead>
