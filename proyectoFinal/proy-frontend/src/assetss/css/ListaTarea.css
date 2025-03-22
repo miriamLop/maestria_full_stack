@@ -1,0 +1,22 @@
+/* Contenedor principal de la tabla */
+.container {
+    margin: 20px 0;
+    padding: 10px;
+  }
+  
+  /* Estilo para la tabla */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Cabeceras de la tabla */
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  
