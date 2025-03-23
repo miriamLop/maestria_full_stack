@@ -56,7 +56,7 @@ class Editar extends React.Component {
     }
 
     //(enf)
-    // metodo que permite capturar los valores desde los imputs
+    // metodo que permite capturar los valores desde los inputs
     // asi que se tiene que colocar en los imputs
     manejadorChange = async (e) => {
         await this.setState({
@@ -66,6 +66,20 @@ class Editar extends React.Component {
             }
         })
         //console.log(this.state.form);
+    }
+    manejadorEliminar = async (e) => {
+        let tareaId = this.props.match.params.id;
+        let url = Apiurl + "/tareas/" + tareaId
+        let datos = {
+            "token": localStorage.getItem("token"),
+            "tareaId": tareaId
+        }
+        console.log(datos);
+        axios.delete(url, { headers: datos })
+            .then(response => {
+                window.location.href = "/dashboard";
+            })
+
     }
 
     manejadorModificar = async (e) => {
@@ -187,7 +201,7 @@ class Editar extends React.Component {
                         <br />
 
                         <button type="submit" className="btn btn-primary" style={{ marginRight: "10px" }} onClick={this.manejadorModificar} >Modificar</button>
-                        <button type="submit" className="btn btn-danger" style={{ marginRight: "10px" }}>Eliminar</button>
+                        <button type="submit" className="btn btn-danger" style={{ marginRight: "10px" }} onClick={this.manejadorEliminar}>Eliminar</button>
                         <a className="btn btn-dark" href="/dashboard">Salir</a>
 
                     </form>

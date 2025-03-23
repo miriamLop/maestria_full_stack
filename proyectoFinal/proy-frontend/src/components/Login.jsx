@@ -42,7 +42,7 @@ class Login extends React.Component {
                 [e.target.name]: e.target.value
             }
         })
-        console.log(this.state.form);
+        //console.log(this.state.form);
     }
 
     //enf
@@ -147,4 +147,4 @@ class Login extends React.Component {
 
 }
 
-export default  withRouter(Login);;
+export default  withRouter(Login);

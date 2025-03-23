@@ -11,6 +11,7 @@ import Nuevo from './components/Nuevo';
 
 import DashboardUsuario from './components/DashboardUsuario';
 import EditarUsuario from './components/EditarUsuario';
+import RegistrarTarea from './components/RegistrarTarea';
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
@@ -50,6 +51,11 @@ function App() {
             path="/usuarios/editar/:id"
             exact
             render={props => (<EditarUsuario {...props} />)} >
+          </Route>
+          <Route
+            path="/registrarTarea"
+            exact
+            render={props => (<RegistrarTarea {...props} />)} >
           </Route>
         </Switch>
       </Router>

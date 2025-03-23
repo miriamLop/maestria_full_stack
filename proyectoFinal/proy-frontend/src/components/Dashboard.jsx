@@ -16,13 +16,18 @@ class Dashboard extends React.Component {
     }
 
     state = {
+        form: {
+            "titulo2": ""
+        },
+        error: false,
+        errorMsg: "",
         tareas: []
     }
 
     clickTarea(id) {
         console.log(id);
         //this.props.history.push("/editar/"+id);
-        window.location.href = "/editar/"+id;
+        window.location.href = "/editar/" + id;
     }
 
     componentDidMount() {
@@ -45,6 +50,59 @@ class Dashboard extends React.Component {
 
     }
 
+    // manejador de evento que evita recargar la pagina completa
+    manejadorSubmit = (params) => {
+        params.preventDefault();
+    }
+
+    //(enf)
+    // metodo que permite capturar los valores desde los inputs y  los adiciona al state
+    // asi que se tiene que colocar en los imputs
+    manejadorChange = async (e) => {
+        await this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(this.state.form);
+    }
+
+    manejadorBoton = (params) => {
+        let url = Apiurl + "/tareas/titulo"
+        console.log('url registro tarea ', url);
+        //para llamar al metodo de backend
+        const userId = localStorage.getItem('id');
+        const titulo2 = this.state.form.titulo2;
+        console.log(userId, " == ", titulo2);
+        axios.post(url, { titulo2: titulo2, usuarioId: userId })
+            .then(
+                response => {
+                    console.log('tareas listadas por titulo', response);
+                    console.log("status: ", response.data.status);
+                    this.setState({
+                        tareas: response.data
+                    })
+
+
+                })
+            .catch((error) => {
+
+                console.log("Error: ", error)
+                if (error.response) {
+                    console.log("Error: ",)
+                }
+                if (error.request) {
+
+                }
+                if (error.message) {
+
+                }
+                console.log("Error: ",)
+            })
+
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -54,6 +112,17 @@ class Dashboard extends React.Component {
 
                 <div >
                     <br /><br />
+
+                    <div >
+
+                        <form role="form" onSubmit={this.manejadorSubmit} >
+                            <input type="text" className="titulo2" name="titulo2" placeholder="Titulo" onChange={this.manejadorChange} />
+                            <input type="submit" className="fadeIn fourth" value="buscar" onClick={this.manejadorBoton} />
+                        </form>
+                    </div>
+
+                    <br /><br />
+
                     <table className="table table-hover">
                         <thead>
                             <tr>

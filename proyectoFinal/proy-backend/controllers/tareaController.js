@@ -1,5 +1,6 @@
-const { where } = require('sequelize');
-const { Tarea } = require('../models');
+const { where, Op } = require('sequelize');
+const { Tarea, Sequelize } = require('../models');
+const { request } = require('express');
 
 exports.obtenerTarea = async (req, res) => {
     const tareas = await Tarea.findAll();
@@ -70,5 +71,33 @@ exports.buscarTareaId = async (req, res) => {
 
 };
 
+exports.buscarTareasTitulo = async (req, res) => {
+    const { titulo2, usuarioId } = req.body;
 
+    console.log('titulo:', titulo2);
+    console.log(req.body);
+
+    const op = Sequelize.Op;
+
+    try {
+        const tareas = await Tarea.findAll({
+            where: {
+                [Op.and]: [{ usuarioId: usuarioId },
+                {
+                    titulo: {
+                        [Op.like]: "%" + titulo2 + "%"
+                    }
+                }],
+
+            },
+        });
+        
+        res.json(tareas);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error interno del servidor' });
+    }
+
+};
 
