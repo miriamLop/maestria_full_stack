@@ -6,7 +6,10 @@ class Header extends React.Component {
         return (
             <nav className="navbar navbar-dark bg-dark">
                 <a className="navbar-brand" href="#">Listar Tareas</a>
+                <a className="navbar-brand" href="/nuevo">Registrar Usuarios</a>
+                <a className="navbar-brand" href="/usuarios">Listar Usuarios</a>
             </nav>
+            
         );
 
     }

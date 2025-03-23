@@ -11,12 +11,16 @@ import { Apiurl } from '../services/apirest';
 // importanto axios para hacer POST, GET
 import axios from 'axios';
 
+import Header from "../template/Header";
+
+import { HttpStatusCode } from "axios";
+
 // js
 //import '../assetss/js/Nuevo.js';
 
 class Nuevo extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -28,7 +32,9 @@ class Nuevo extends React.Component {
             "password": ""
         },
         error: false,
-        errorMsg: ""
+        errorMsg: "",
+        success: false,
+        sucessMsg: "",
     }
 
     // manejador de evento que evita recargar la pagina completa
@@ -53,11 +59,34 @@ class Nuevo extends React.Component {
     manejadorBoton = (params) => {
         console.log("Boton enviado...");
 
-        let url = Apiurl + "/usuarios"
+        let url = Apiurl + "/registrar"
         axios.post(url, this.state.form)
             .then(
                 response => {
                     console.log(response);
+                    console.log("response.status: ", response.status);
+                    if (response.status === HttpStatusCode.Created) {
+                        console.log("Registro correcto.");
+                        this.setState({
+                            success: true,
+                            sucessMsg: "Registro correcto.",
+                            error: false,
+                            errorMsg: "",
+                            form: {
+                                "nombre": "",
+                                "email": "",
+                                "password": ""
+                            }
+                        })
+                    } else {
+                        this.setState({
+                            success: false,
+                            sucessMsg: "",
+                            error: true,
+                            errorMsg: "Error de registro."
+                        })
+                    }
+
                 }
             );
 
@@ -67,22 +96,35 @@ class Nuevo extends React.Component {
         return (
             <React.Fragment>
 
-                <div className="container">
-                    <div className="row">
-                        <div className="container" id="formContainer">
+                <Header>
 
-                            <form className="form-signin" id="login" role="form" onSubmit={this.manejadorSubmit}>
+                </Header>
+                <br/>
+                <br/>
+                <div >
+                    <div className="row">
+                        <div className="container" >
+
+                            <form className="form-signin" role="form" onSubmit={this.manejadorSubmit}>
                                 <h3 className="form-signin-heading">Registro de Usuario</h3>
 
                                 <input type="text" className="form-control" name="nombre" placeholder="Nombre" required autofocus onChange={this.manejadorChange} />
                                 <input type="email" className="form-control" name="email" placeholder="Email" required onChange={this.manejadorChange} />
                                 <input type="password" className="form-control" name="password" placeholder="Password" required onChange={this.manejadorChange} />
-                                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={ this.manejadorBoton } >Guardar</button>
+                                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.manejadorBoton} >Guardar</button>
                             </form>
-
-
                         </div>
                     </div>
+                    {this.state.success === true &&
+                        <div className="alert alert-primary" role="alert">
+                            {this.state.sucessMsg}
+                        </div>
+                    }
+                    {this.state.error === true &&
+                        <div className="alert alert-danger" role="alert">
+                            {this.state.errorMsg}
+                        </div>
+                    }
                 </div>
 
             </React.Fragment>

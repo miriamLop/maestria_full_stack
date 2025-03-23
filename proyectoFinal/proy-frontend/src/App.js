@@ -9,6 +9,9 @@ import Editar from './components/Editar';
 import Login from './components/Login';
 import Nuevo from './components/Nuevo';
 
+import DashboardUsuario from './components/DashboardUsuario';
+import EditarUsuario from './components/EditarUsuario';
+
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 function App() {
@@ -18,24 +21,35 @@ function App() {
       <Router>
         <Switch>
           <Route
-            path="/" 
-            exact 
-            render = { props => (<Login {...props}/>) } > 
+            path="/"
+            exact
+            render={props => (<Login {...props} />)} >
           </Route>
-          <Route 
-            path="/dashboard" 
-            exact 
-            render={ props => (<Dashboard {...props} />) } >
+          <Route
+            path="/dashboard"
+            exact
+            render={props => (<Dashboard {...props} />)} >
           </Route>
-          <Route 
-            path="/nuevo" 
-            exact 
-            render={ props => (<Nuevo {...props} />) } >
+          <Route
+            path="/nuevo"
+            exact
+            render={props => (<Nuevo {...props} />)} >
           </Route>
-          <Route 
-            path="/editar/:id" 
-            exact 
-            render={ props => (<Editar {...props} />) } >
+          <Route
+            path="/editar/:id"
+            exact
+            render={props => (<Editar {...props} />)} >
+          </Route>
+
+          <Route
+            path="/usuarios"
+            exact
+            render={props => (<DashboardUsuario {...props} />)} >
+          </Route>
+          <Route
+            path="/usuarios/editar/:id"
+            exact
+            render={props => (<EditarUsuario {...props} />)} >
           </Route>
         </Switch>
       </Router>
