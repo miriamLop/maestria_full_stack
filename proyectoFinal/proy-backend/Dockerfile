@@ -6,6 +6,8 @@ COPY . /app/
 
 RUN npm install
 
+RUN apt-get update && apt-get install -y netcat-traditional
+
 EXPOSE 3001
 
 CMD ["npm", "start"]

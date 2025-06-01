@@ -1,11 +1,18 @@
 services:
   app:
-    image: proy-backend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    #image: proy-backend
     container_name: app
+    #entrypoint: ["/bin/bash", "/init.sh"]
+    command: ["sh", "wait-for-it.sh", "dbpostgresql:5432", "--", "node", "index.js"]
     depends_on:
       - dbpostgresql
+    volumes:
+      - ./db_bak/wait-for-it.sh:/app/wait-for-it.sh
     ports:
-     - 3001:3001
+      - 3001:3001
   dbpostgresql:
     image: postgres:16-bullseye
     container_name: dbpostgresql

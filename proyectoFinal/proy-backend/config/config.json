@@ -3,14 +3,14 @@
     "username": "postgres",
     "password": "12345678",
     "database": "tareaspfinal",
-    "host": "127.0.0.1",
+    "host": "dbpostgresql",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "12345678",
     "database": "tareaspfinal",
-    "host": "127.0.0.1",
+    "host": "dbpostgresql",
     "dialect": "postgres" 
   } 
 }
